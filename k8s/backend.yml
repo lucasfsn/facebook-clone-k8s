@@ -24,28 +24,28 @@ spec:
           env:
             - name: MONGO_CONNECTION_STRING
               valueFrom:
-                configMapKeyRef:
-                  name: backend-configmap
+                secretKeyRef:
+                  name: backend-secrets
                   key: MONGO_CONNECTION_STRING
             - name: JWT_SECRET
               valueFrom:
-                configMapKeyRef:
-                  name: backend-configmap
+                secretKeyRef:
+                  name: backend-secrets
                   key: JWT_SECRET
             - name: CLOUDINARY_CLOUD_NAME
               valueFrom:
-                configMapKeyRef:
-                  name: backend-configmap
+                secretKeyRef:
+                  name: backend-secrets
                   key: CLOUDINARY_CLOUD_NAME
             - name: CLOUDINARY_API_SECRET
               valueFrom:
-                configMapKeyRef:
-                  name: backend-configmap
+                secretKeyRef:
+                  name: backend-secrets
                   key: CLOUDINARY_API_SECRET
             - name: CLOUDINARY_API_KEY
               valueFrom:
-                configMapKeyRef:
-                  name: backend-configmap
+                secretKeyRef:
+                  name: backend-secrets
                   key: CLOUDINARY_API_KEY
 ---
 apiVersion: v1
@@ -55,7 +55,6 @@ metadata:
   labels:
     app: facebook-clone
 spec:
-  # type: LoadBalancer
   selector:
     app: backend
   ports:

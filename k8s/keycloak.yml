@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-service
+  labels:
+    app: facebook-clone
+spec:
+  selector:
+    app: keycloak
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-deployment
+  labels:
+    app: facebook-clone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:24.0.4
+          args: ['start-dev']
+          resources:
+            limits:
+              cpu: '400m'
+              memory: '1828Mi'
+          env:
+            - name: KC_DB
+              value: 'postgres'
+            - name: KC_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: KC_DB_URL
+              value: 'jdbc:postgresql://postgres-service:5432/keycloak'
+            - name: KC_DB_URL_DATABASE
+              value: 'keycloak'
+            - name: KC_DB_URL_HOST
+              value: 'postgres-service'
+            - name: KC_DB_URL_PORT
+              value: '5432'
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: KEYCLOAK_ADMIN
+              value: 'keycloak'
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: 'keycloak'
+          ports:
+            - containerPort: 8080
+              protocol: TCP

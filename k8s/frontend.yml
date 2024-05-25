@@ -29,7 +29,6 @@ metadata:
   labels:
     app: facebook-clone
 spec:
-  # type: LoadBalancer
   selector:
     app: frontend
   ports:

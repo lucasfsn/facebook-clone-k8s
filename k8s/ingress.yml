@@ -25,3 +25,13 @@ spec:
                 name: frontend-service
                 port:
                   number: 80
+    - host: keycloak.facebook-clone.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: keycloak-service
+                port:
+                  number: 8080
