@@ -4,14 +4,14 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
 
 ## Contents
 
-- [Live Version](#live-version)
+- [Documentation](#documentation)
 - [App Preview](#app-preview)
 - [Overview](#overview)
   - [Features](#features)
   - [Technologies Used](#technologies-used)
 - [Run Locally](#get-repository)
 
-### [Live Version](https://facebook-clone-lucasfsn.vercel.app)
+### [Documentation](https://github.com/lucasfsn/fb-clone-ug/tree/main/documentation)
 
 ### App Preview
 
@@ -23,15 +23,17 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
 ## Overview
 
 ### Features
--   Login and registration
--   Profile: View and edit user profile
--   Friends: Manage the user's friends list, send friend requests
--   Pictures: View, add and delete photos
--   Post: Create, edit and delete posts, add and remove reaction, add and delete comment
--   Search: Search for users in the application
--   Settings: Manage user and application settings (dark and light mode)
+
+- Login and registration
+- Profile: View and edit user profile
+- Friends: Manage the user's friends list, send friend requests
+- Pictures: View, add and delete photos
+- Post: Create, edit and delete posts, add and remove reaction, add and delete comment
+- Search: Search for users in the application
+- Settings: Manage user and application settings (dark and light mode)
 
 ### Technologies Used
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Express](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
@@ -61,5 +63,4 @@ Go to the project directory
 
 ## Author
 
--   GitHub - [@lucasfsn](https://github.com/lucasfsn)
-
+- GitHub - [@lucasfsn](https://github.com/lucasfsn)
