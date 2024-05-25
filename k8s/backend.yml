@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: facebook-clone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: lucasfsn/facebook-clone-backend:latest
+          resources:
+            limits:
+              cpu: '200m'
+              memory: '500Mi'
+          env:
+            - name: MONGO_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: MONGO_CONNECTION_STRING
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: JWT_SECRET
+            - name: CLOUDINARY_CLOUD_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: CLOUDINARY_CLOUD_NAME
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: CLOUDINARY_API_SECRET
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: CLOUDINARY_API_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  labels:
+    app: facebook-clone
+spec:
+  # type: LoadBalancer
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
