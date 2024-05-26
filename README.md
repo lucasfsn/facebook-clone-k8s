@@ -74,7 +74,7 @@ Build the Docker image with environment variables
 - VITE_KEYCLOAK_SECRET=your_keycloak_secret
 
 ```bash
-  docker build --build-arg VITE_BACKEND_API_URL=... --build-arg VITE_KEYCLOAK_TOKEN_ENDPOINT=... --build-arg VITE_KEYCLOAK_CLIENT_ID=... --build-arg VITE_KEYCLOAK_SECRET=... -t your_image:tag  .
+  docker build --build-arg VITE_BACKEND_API_URL=... --build-arg VITE_KEYCLOAK_USERINFO_ENDPOINT=... --build-arg VITE_KEYCLOAK_TOKEN_ENDPOINT=... --build-arg VITE_KEYCLOAK_CLIENT_ID=... --build-arg VITE_KEYCLOAK_SECRET=... -t image:tag  .
 ```
 
 Go to the server directory
