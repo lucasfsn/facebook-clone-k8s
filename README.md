@@ -77,6 +77,12 @@ Build the Docker image with environment variables
   docker build --build-arg VITE_BACKEND_API_URL=... --build-arg VITE_KEYCLOAK_USERINFO_ENDPOINT=... --build-arg VITE_KEYCLOAK_TOKEN_ENDPOINT=... --build-arg VITE_KEYCLOAK_CLIENT_ID=... --build-arg VITE_KEYCLOAK_SECRET=... -t image:tag  .
 ```
 
+Push image to registry
+
+```bash
+  docker push image:tag
+```
+
 Go to the server directory
 
 ```bash
@@ -90,6 +96,18 @@ Replace keycloak.json values with your keycloak data:
 - resource: Your keycloak client id
 - secret: Your keycloak client secret
 - realm-public-key: Your keycloak public key
+
+Build the Docker image
+
+```bash
+  docker build -t image:tag .
+```
+
+Push image to registry
+
+```bash
+  docker push image:tag
+```
 
 Go to the k8s directory
 
@@ -114,14 +132,32 @@ Create backend-secrets.yml
     CLOUDINARY_API_SECRET: your_cloudinary_api_secret
 ```
 
-Run locally
+Add the following lines to your hosts file
+
+```bash
+  127.0.0.1 api.facebook-clone.com
+  127.0.0.1 facebook-clone.com
+  127.0.0.1 keycloak.facebook-clone.com
+```
+
+**Windows**
 
 ```bash
   1. minikube start --memory 4096 --disk-size 10g --cpus 2
-  2. minikube apply -f .
-  3. kubectl get pods -n ingress-nginx (copy ingress-nginx-controller pod full name)
-  4. Add your ingress custom host names to your system configuration
-  5. kubectl -n ingress-nginx port-forward pod/pod-name-from-point-3 --address 0.0.0.0 80:80 443:443
+  2. minikube addons enable ingress
+  3. minikube apply -f .
+  4. kubectl get pods -n ingress-nginx (copy ingress-nginx-controller pod name)
+  5. Add your ingress custom host names to your system configuration
+  6. kubectl -n ingress-nginx port-forward pod/pod-name-from-point-4--address 0.0.0.0 80:80 443:443
+```
+
+**Linux**
+
+```bash
+  1. minikube start --memory 4096 --disk-size 10g --cpus 2
+  2. minikube addons enable ingress
+  3. minikube apply -f .
+  4. minikube tunnel
 ```
 
 Login to [keycloak](http://keycloak.facebook-clone.com)
