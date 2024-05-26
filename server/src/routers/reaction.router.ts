@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import { Router } from 'express';
 import * as ReactionController from '../controllers/reaction';
-import { authenticateToken } from '../middlewares/auth';
+import { getKeycloak } from '../utils/keycloak';
 
 export const reactionRouter = Router()
-  .post('/add', authenticateToken, ReactionController.addReaction)
+  .post('/add', getKeycloak().protect(), ReactionController.addReaction)
   .get('/get/:postId/:userId', ReactionController.getReaction);

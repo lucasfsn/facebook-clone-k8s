@@ -1,13 +1,11 @@
 import bcrypt from 'bcryptjs';
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import PostModel from '../models/post';
 import ReactionModel from '../models/reaction';
 import UserModel, { User } from '../models/user';
 import { generateUsername } from '../utils/generateUsername';
-import env from '../utils/validateEnv';
 import {
   ProfileImportSchema,
   validateBirthdate,
@@ -141,8 +139,6 @@ export const signUp: RequestHandler<
       gender,
     });
 
-    const token = jwt.sign({ id: newUser._id.toString() }, env.JWT_SECRET);
-
     res.send({
       message: 'Signed up successfully',
       user: {
@@ -158,7 +154,6 @@ export const signUp: RequestHandler<
           birthYear: newUser.birthYear,
         },
       },
-      token,
     });
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
@@ -189,8 +184,6 @@ export const login: RequestHandler<
         'Invalid password. Check your data and try again.'
       );
 
-    const token = jwt.sign({ id: user._id.toString() }, env.JWT_SECRET);
-
     res.send({
       message: 'Logged in successfully',
       user: {
@@ -206,7 +199,6 @@ export const login: RequestHandler<
           birthYear: user.birthYear,
         },
       },
-      token,
     });
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
@@ -437,132 +429,6 @@ export const getUserProfile: RequestHandler<
       .sort({ createdAt: -1 });
 
     res.json({ ...user.toObject(), userPosts });
-
-    // If you want to use aggregate instead of populate, use this code
-    /* const userAggregate = await UserModel.aggregate([
-      { $match: { username: username } },
-      { $project: { password: 0 } },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'friends',
-          foreignField: '_id',
-          as: 'friends',
-        },
-      },
-      {
-        $project: {
-          'friends.birthDay': 0,
-          'friends.birthMonth': 0,
-          'friends.birthYear': 0,
-          'friends.cover': 0,
-          'friends.createdAt': 0,
-          'friends.details': 0,
-          'friends.gender': 0,
-          'friends.friends': 0,
-          'friends.friendRequests': 0,
-          'friends.sentFriendRequests': 0,
-          'friends.email': 0,
-          'friends.password': 0,
-          'friends.__v': 0,
-          'friends.updatedAt': 0,
-          'friends.search': 0,
-        },
-      },
-    ]);
-
-    const user = userAggregate[0];
-
-    if (!user) throw createHttpError(404, 'User not found');
-
-    const userPosts = await PostModel.aggregate([
-      { $match: { user: user._id } },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'user',
-          foreignField: '_id',
-          as: 'user',
-        },
-      },
-      { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
-      {
-        $unwind: {
-          path: '$comments',
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'comments.author',
-          foreignField: '_id',
-          as: 'comments.author',
-        },
-      },
-      {
-        $unwind: {
-          path: '$comments.author',
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $group: {
-          _id: '$_id',
-          type: { $first: '$type' },
-          images: { $first: '$images' },
-          content: { $first: '$content' },
-          user: { $first: '$user' },
-          key: { $first: '$key' },
-          audience: { $first: '$audience' },
-          comments: { $push: '$comments' },
-          createdAt: { $first: '$createdAt' },
-          updatedAt: { $first: '$updatedAt' },
-        },
-      },
-      {
-        $project: {
-          'comments.authorDetails': 0,
-          'comments.author.password': 0,
-          'comments.author.__v': 0,
-          'comments.author.search': 0,
-          'comments.author.gender': 0,
-          'comments.author.birthDay': 0,
-          'comments.author.birthMonth': 0,
-          'comments.author.birthYear': 0,
-          'comments.author.friends': 0,
-          'comments.author.friendRequests': 0,
-          'comments.author.details': 0,
-          'comments.author.sentFriendRequests': 0,
-          'comments.author.createdAt': 0,
-          'comments.author.updatedAt': 0,
-          'comments.author.email': 0,
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          type: 1,
-          images: 1,
-          content: 1,
-          user: 1,
-          key: 1,
-          audience: 1,
-          createdAt: 1,
-          updatedAt: 1,
-          comments: {
-            $filter: {
-              input: '$comments',
-              as: 'comment',
-              cond: { $ne: ['$$comment', {}] },
-            },
-          },
-        },
-      },
-      { $sort: { createdAt: -1 } },
-    ]);
-
-    res.json({ ...user, userPosts }); */
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
   }

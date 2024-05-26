@@ -1,0 +1,12 @@
+{
+  "realm": "facebook-clone",
+  "auth-server-url": "http://keycloak.facebook-clone.com/",
+  "ssl-required": "external",
+  "resource": "keycloak",
+  "credentials": {
+    "secret": "RsiJd9ft90B9aHVBVFOPBF8JZX5horl8"
+  },
+  "confidential-port": 0,
+  "bearer-only": true,
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp0GEGO56rGs45yPHpqJQELxT/P/Se255N2bYCAFmHVkoCuZ5rXDy+Zjps3C/HnoA2/TVxI82FRTSWZiHW/Qdnai7ddM81YWDOb1x9j2kFJPRix9ycK7vW6JVc+idHlGES4RtAVOnd3CeuhhBYWJbm3jyjH4P4lKwShmSkuDaBd+6LeLzT2DRjYe0iXaYioX9JJNr+rYCHxDCjuR4KJgCJVOnXH56dPUEIiskH3tpG92QKEZJxfOwLwVyKf9mhl8dPc3p3gJBmB08oVt4dEyVS0/ZILQjzL1fSZzts83ykPJWDa2iYxUHpMXtfMOTH+uYXwonKdOjZuMtcIDy/eGSPwIDAQAB"
+}

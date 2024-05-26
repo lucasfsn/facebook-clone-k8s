@@ -59,7 +59,7 @@ spec:
               protocol: TCP
           resources:
             limits:
-              cpu: '200m'
+              cpu: '150m'
               memory: '256Mi'
           volumeMounts:
             - name: postgres-config

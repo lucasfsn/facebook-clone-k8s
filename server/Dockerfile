@@ -13,6 +13,7 @@ FROM node:alpine
 WORKDIR /app
 
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/keycloak.json ./keycloak.json
 
 COPY package*.json ./
 

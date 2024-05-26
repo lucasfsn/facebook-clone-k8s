@@ -16,22 +16,22 @@ spec:
     spec:
       containers:
         - name: backend
-          image: lucasfsn/facebook-clone-backend:latest
+          image: lucasfsn/facebook-clone-backend:4.0
           resources:
             limits:
-              cpu: '200m'
-              memory: '500Mi'
+              cpu: '250m'
+              memory: '750Mi'
           env:
             - name: MONGO_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
                   name: backend-secrets
                   key: MONGO_CONNECTION_STRING
-            - name: JWT_SECRET
+            - name: CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: backend-secrets
-                  key: JWT_SECRET
+                  key: CLIENT_SECRET
             - name: CLOUDINARY_CLOUD_NAME
               valueFrom:
                 secretKeyRef:

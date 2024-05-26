@@ -65,18 +65,30 @@ Go to the client directory
   cd client
 ```
 
-Create .env file
-
-```bash
-  touch .env
-```
-
-.env must contain the following variables:
+Build the Docker image with environment variables
 
 - VITE_BACKEND_API_URL=your_backend_api_url
 - VITE_KEYCLOAK_TOKEN_ENDPOINT=your_keycloak_token_endpoint_url
 - VITE_KEYCLOAK_CLIENT_ID=your_keycloak_client_id
 - VITE_KEYCLOAK_SECRET=your_keycloak_secret
+
+```bash
+  docker build --build-arg VITE_BACKEND_API_URL=... --build-arg VITE_KEYCLOAK_TOKEN_ENDPOINT=... --build-arg VITE_KEYCLOAK_CLIENT_ID=... --build-arg VITE_KEYCLOAK_SECRET=... -t your_image:tag  .
+```
+
+Go to the server directory
+
+```bash
+  cd server
+```
+
+Replace keycloak.json values with your keycloak data:
+
+- realm: Your keycloak realm name
+- auth-server-url: Your keycloak url
+- resource: Your keycloak client id
+- secret: Your keycloak client secret
+- realm-public-key: Your keycloak public key
 
 Go to the k8s directory
 
@@ -99,9 +111,6 @@ Create backend-secrets.yml
     CLOUDINARY_CLOUD_NAME: your_cloudinary_cloud_name
     CLOUDINARY_API_KEY: your_cloudinary_api_key
     CLOUDINARY_API_SECRET: your_cloudinary_api_secret
-    KEYCLOAK_REALM: your_keycloak_realm
-    KEYCLOAK_AUTH_URL: your_keycloak_auth_url
-    KEYCLOAK_CLIENT_ID: your_keycloak_client_id
 ```
 
 Run locally

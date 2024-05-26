@@ -22,7 +22,9 @@ export function useSignup() {
         secure: true,
       });
 
-      Cookies.set("token", token);
+      Cookies.set("token", token, {
+        expires: 15 / 24 / 60,
+      });
 
       dispatch(login(signUpData));
 

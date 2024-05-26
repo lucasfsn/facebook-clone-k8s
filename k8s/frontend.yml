@@ -16,11 +16,11 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: lucasfsn/facebook-clone-frontend:latest
+          image: lucasfsn/facebook-clone-frontend:4.0
           resources:
             limits:
               cpu: '200m'
-              memory: '500Mi'
+              memory: '400Mi'
 ---
 apiVersion: v1
 kind: Service

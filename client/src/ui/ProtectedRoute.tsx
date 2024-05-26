@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { ReactNode, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,14 +13,16 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
   const user = useSelector(getUser);
   const isLoading = useSelector(getLoading);
 
+  const token = Cookies.get("token");
+
   useEffect(
     function () {
-      if (!isLoading && !user) navigate("/login");
+      if (!isLoading && !user && !token) navigate("/login");
     },
-    [user, isLoading, navigate],
+    [user, isLoading, navigate, token],
   );
 
-  if (user) return children;
+  if (user && token) return children;
 }
 
 export default ProtectedRoute;

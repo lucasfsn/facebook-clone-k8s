@@ -1,61 +1,81 @@
 import 'dotenv/config';
 import { Router } from 'express';
 import * as UserController from '../controllers/user';
-import { authenticateToken } from '../middlewares/auth';
+import { getKeycloak } from '../utils/keycloak';
 
 export const userRouter = Router()
-  .post('/signup', UserController.signUp)
-  .post('/login', UserController.login)
-  .get('/profile/:username', authenticateToken, UserController.getUserProfile)
-  .patch('/change-password', authenticateToken, UserController.changePassword)
-  .put('/change/:data', authenticateToken, UserController.changeUserInfo)
-  .delete('/:id', authenticateToken, UserController.deleteUser)
+  .post('/signup', getKeycloak().protect(), UserController.signUp)
+  .post('/login', getKeycloak().protect(), UserController.login)
+  .get(
+    '/profile/:username',
+    getKeycloak().protect(),
+    UserController.getUserProfile
+  )
+  .patch(
+    '/change-password',
+    getKeycloak().protect(),
+    UserController.changePassword
+  )
+  .put('/change/:data', getKeycloak().protect(), UserController.changeUserInfo)
+  .delete('/:id', getKeycloak().protect(), UserController.deleteUser)
   .patch(
     '/profile/updatePicture',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.updateProfileImage
   )
   .patch(
     '/profile/updateCover',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.updateCoverImage
   )
   .delete(
     '/profile/:id/removeCover',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.removeCoverPhoto
   )
   .delete(
     '/profile/:id/removePicture',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.removeProfilePicture
   )
   .patch(
     '/profile/updateDetails',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.updateDetails
   )
-  .post('/profile/:id/add', authenticateToken, UserController.addFriend)
+  .post('/profile/:id/add', getKeycloak().protect(), UserController.addFriend)
   .put(
     '/profile/:id/cancel',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.cancelFriendRequest
   )
   .put(
     '/profile/:id/accept',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.acceptFriendRequest
   )
-  .delete('/profile/:id/remove', authenticateToken, UserController.removeFriend)
+  .delete(
+    '/profile/:id/remove',
+    getKeycloak().protect(),
+    UserController.removeFriend
+  )
   .delete(
     '/profile/:id/removeRequest',
-    authenticateToken,
+    getKeycloak().protect(),
     UserController.removeFriendRequest
   )
-  .get('/user/:id', authenticateToken, UserController.getUserById)
-  .get('/search/:id/get', authenticateToken, UserController.searchGet)
-  .post('/search/:user', authenticateToken, UserController.searchUser)
-  .put('/search/:user/add', authenticateToken, UserController.searchAdd)
-  .delete('/search/:user', authenticateToken, UserController.searchDelete)
-  .post('/import/:userId', authenticateToken, UserController.importProfile)
-  .get('/export/:userId', authenticateToken, UserController.exportProfile);
+  .get('/user/:id', getKeycloak().protect(), UserController.getUserById)
+  .get('/search/:id/get', getKeycloak().protect(), UserController.searchGet)
+  .post('/search/:user', getKeycloak().protect(), UserController.searchUser)
+  .put('/search/:user/add', getKeycloak().protect(), UserController.searchAdd)
+  .delete('/search/:user', getKeycloak().protect(), UserController.searchDelete)
+  .post(
+    '/import/:userId',
+    getKeycloak().protect(),
+    UserController.importProfile
+  )
+  .get(
+    '/export/:userId',
+    getKeycloak().protect(),
+    UserController.exportProfile
+  );
