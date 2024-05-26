@@ -85,17 +85,17 @@
 \rhead{\hmwkAuthorName} % Top left header
 \lhead{\hmwkClass: \hmwkTitle} % Top center header
 \rhead{\firstxmark} % Top right header
-\lfoot{Jan Kowalski} % Bottom left footer
+\lfoot{Łukasz Nowosielski} % Bottom left footer
 \cfoot{} % Bottom center footer
 \rfoot{} % Bottom right footer
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{1pt}
 
     
-\newcommand{\hmwkTitle}{Tytuł projektu z technologii chmurowych} % Tytuł projektu
+\newcommand{\hmwkTitle}{Facebook Clone} % Tytuł projektu
 \newcommand{\hmwkDueDate}{\today} % Data 
 \newcommand{\hmwkClass}{Technologie chmurowe} % Nazwa przedmiotu
-\newcommand{\hmwkAuthorName}{Jan Kowalski} % Imię i nazwisko
+\newcommand{\hmwkAuthorName}{Łukasz Nowosielski} % Imię i nazwisko
 
 % trabalho 
 \begin{document}
@@ -136,55 +136,99 @@
 \section{Opis projektu}
 \label{sec:Project}
 
-Tutaj wypisujemy szczegółowe informacje o celu powstania projektu (jakaś historyjka, że pewna firma/osoba potrzebuje bazy, która ...)
+Projekt "facebook-clone" powstał z myślą o dynamicznie rozwijającej się firmie \textbf{ConnectSphere}, która specjalizuje się w dostarczaniu innowacyjnych rozwiązań technologicznych. \textbf{ConnectSphere} zauważyła, że wiele małych i średnich przedsiębiorstw potrzebuje prostych, ale skutecznych narzędzi do budowania społeczności i komunikacji z klientami. Jednak popularne platformy społecznościowe, takie jak Facebook, często są zbyt skomplikowane i obciążone nadmiarem funkcji, co prowadzi do wolnej i nieefektywnej komunikacji.
+
+\textbf{ConnectSphere} potrzebowała prostego, ale skutecznego narzędzia do budowania społeczności wokół swojej misji. Chcieli stworzyć miejsce, gdzie firmy mogłyby łatwo komunikować się ze swoimi klientami, dzielić się aktualnościami i informacjami o produktach, a także otrzymywać bezpośrednie opinie.
+
+Dlatego powstał pomysł na stworzenie "facebook-clone" - platformy, która oferuje podstawowe funkcje społecznościowe, takie jak tworzenie profilu, udostępnianie postów, komentowanie i reagowanie na posty innych użytkowników. Projekt ma na celu dostarczenie tych funkcji w prosty i intuicyjny sposób, umożliwiając \textbf{ConnectSphere} skuteczną komunikację i budowanie społeczności wokół ich produktów i usług.
 
 \subsection{Opis architektury - 8 pkt}
 \label{sec:introduction}
-Powinna zawierać opis architektury aplikacji opartej na Kubernetes, w tym opis klastrowego systemu zarządzania kontenerami, wykorzystanych modułów i komponentów
+Aplikacja "facebook-clone" jest zbudowana z trzech kluczowych elementów: interfejsu użytkownika (frontend), serwera aplikacji (backend) i bazy danych. Interfejs użytkownika został stworzony przy użyciu TypeScript i frameworka React, podczas gdy serwer aplikacji również korzysta z TypeScript, ale z frameworka Express. Baza danych to MongoDB, która jest hostowana w chmurze.
+
+Aplikacja jest hostowana na klastrze Kubernetes, który zapewnia skalowalność, niezawodność i wydajność. Interfejs użytkownika jest dostępny dla użytkowników za pośrednictwem przeglądarki internetowej, podczas gdy serwer aplikacji komunikuje się z bazą danych i obsługuje żądania użytkowników.
+
+Aplikacja korzysta z Ingress w Kubernetes, który zarządza dostępem do usług w klastrze, zapewniając wysokowydajne i niezawodne przekierowanie ruchu. Dzięki Ingress, aplikacja jest dostępna pod adresem https://facebook-clone.com (frontend), https://api.facebook-clone.com (backend) i https://keycloak.facebook-clone.com (keycloak). Ingress umożliwia także łatwe zarządzanie ruchem sieciowym, co jest kluczowe dla utrzymania wydajności i niezawodności aplikacji.
 
 
 \subsection{Opis infrastruktury - 6 pkt}
 \label{sec:Users}
 
-Powinien zawierać informacje na temat środowiska, w którym aplikacja będzie działać, a także wykorzystanych narzędzi i platformy chmurowe. Ważne jest również zwrócenie uwagi na wykorzystanie zasobów, takich jak sieci i pamięci masowej.
+Aplikacja "facebook-clone" jest zaprojektowana do działania w środowisku Kubernetes, wykorzystując Minikube. Minikube to narzędzie, które umożliwia uruchomienie jednego węzła klastra Kubernetes na lokalnym komputerze. Jest to idealne rozwiązanie dla deweloperów, którzy chcą testować swoje aplikacje w środowisku Kubernetes bez konieczności tworzenia pełnego klastra. Specyfikacja klastra Minikube to 4GB pamięci RAM, 2 vCPU i 10GB miejsca na dysku.
 
 \subsection{Opis komponentów aplikacji - 8 pkt}
 \label{sec:FunctionalConditions}
 
-Powinna zawierać informacje na temat komponentów aplikacji, takich jak serwisy, aplikacje i bazy danych. W szczególności należy zwrócić uwagę na sposoby ich wdrażania, konfiguracji i zarządzania.
+Aplikacja składa się z:
+
+\begin{itemize}
+\item \textbf{Frontend:} Frontend został zbudowany za pomocą biblioteki React. Do obsługi żądań HTTP używamy serwera Nginx. Kod źródłowy frontendu jest zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
+
+\item \textbf{Backend:} Backend został zbudowany za pomocą frameworka Express.js. Backend komunikuje się z bazą danych MongoDB, która jest hostowana na platformie MongoDB Atlas. Podobnie jak frontend, backend jest również zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
+
+\item \textbf{Keycloak:} Do zarządzania uwierzytelnianiem i autoryzacją w aplikacji używamy Keycloak. Keycloak jest skonfigurowany do pracy w trybie "client credentials", gdzie autoryzacja jest oparta na identyfikatorze i tajnym kluczu klienta, a nie na danych użytkownika. Tokeny uwierzytelniające są generowane przez Keycloak i przekazywane do backendu, gdzie są używane do zabezpieczania naszego API.
+
+\item \textbf{PostgreSQL:} Aplikacja korzysta z bazy danych PostgreSQL, która jest zarządzana przez Keycloak. Baza danych jest przechowywana na stałym woluminie (PVC), co pozwala na zachowanie danych nawet po zatrzymaniu i ponownym uruchomieniu kontenera.
+\end{itemize}
 
 \subsection{Konfiguracja i zarządzanie - 4 pkt}
 \label{sec:NonFunctionalConditions}
 
-Powinna zawierać informacje na temat konfiguracji i zarządzania aplikacją na poziomie klastra Kubernetes.
+Konfiguracja i zarządzanie aplikacją na poziomie klastra Kubernetes odbywa się na kilka sposobów:
 
-\subsection{Zarządzanie błędami - 2 pkt}
+\begin{itemize}
+\item \textbf{Deploymenty:} Każdy komponent aplikacji (frontend, backend, Keycloak, baza danych PostgreSQL) jest uruchamiany jako osobny Deployment w Kubernetes. Deploymenty pozwalają na łatwe skalowanie i aktualizację komponentów aplikacji.
+
+\item \textbf{Serwisy:} Komunikacja między komponentami aplikacji jest zarządzana za pomocą Serwisów Kubernetes, które zapewniają odkrywanie i balansowanie obciążenia.
+
+\item \textbf{ConfigMaps i Secrets:} Konfiguracja aplikacji jest przechowywana w ConfigMaps (Ingress, Keycloak, PostgreSQL) i Secrets (Backend, PostgreSQL). Pozwala to na centralne zarządzanie konfiguracją i bezpieczne przechowywanie poufnych danych.
+
+\item \textbf{Persistent Volume Claims:} Dane bazy danych PostgreSQL są przechowywane na Persistent Volume za pomocą Persistent Volume Claim, co zapewnia trwałość danych.
+
+\item \textbf{Ingress:} Dostęp do aplikacji z zewnątrz klastra jest zarządzany za pomocą Ingress, który kieruje ruch sieciowy do odpowiednich Serwisów.
+\end{itemize}
+
+\subsection{Zarządzanie błędami}
 \label{sec:ERD} 
 
-Powinna zawierać informacje na temat sposobów zarządzania błędami aplikacji oraz sposobów monitorowania i reagowania na awarie.
+\begin{itemize}
+\item \textbf{Obsługa błędów na poziomie aplikacji:} W backendzie i frontendzie korzystam z bloków `try {} catch {}` do przechwytywania i obsługi błędów. Dzięki temu, nawet w przypadku nieoczekiwanych błędów, nasza aplikacja nie przestaje działać.
 
+\end{itemize}
 
 \subsection{Skalowalność - 4 pkt}
 \label{sec:ExamplesSection}
 
-Skalowalność jest kluczowa w architekturze aplikacji opartej na Kubernetes. Należy opisać, jak aplikacja może być skalowana, w jaki sposób skalowanie jest monitorowane i jakie narzędzia są wykorzystywane w tym celu.
+Skalowalność jest kluczowa w architekturze aplikacji opartej na Kubernetes.
+
+\begin{itemize}
+\item \textbf{Skalowanie horyzontalne:} Aplikacja jest skalowana horyzontalnie poprzez zwiększanie liczby replik podów na backendzie. Obecnie liczba replik na backendzie została zwiększona do 2, co pozwala na lepsze rozłożenie obciążenia i zwiększa przepustowość. Kubernetes automatycznie rozprowadza ruch między replikami, zapewniając równomierne obciążenie.
+
+\end{itemize}
 
 \subsection{Wymagania dotyczące zasobów - 2 pkt}
 \label{sec:ExampleTables}
 
-Powinna zawierać informacje na temat wymagań dotyczących zasobów dla każdego komponentu aplikacji, takie jak ilość pamięci RAM, CPU, miejsce na dysku, itp. Należy również opisać, jakie są oczekiwania dotyczące wydajności i czasu odpowiedzi dla aplikacji.
+\begin{itemize}
+\item \textbf{Frontend:} 400MB pamięci RAM, 0.2 rdzenia CPU
+\item \textbf{Backend:} 750MB pamięci RAM, 0.25 rdzenia CPU
+\item \textbf{PostgreSQL:} 256MB pamięci RAM, 0.15 rdzenia CPU
+\item \textbf{Keycloak:} 2000MB pamięci RAM, 1 rdzeń CPU
+\end{itemize}
 
 
 \subsection{Architektura sieciowa - 4 pkt}
 \label{sec:ExampleResults}
 
-powinna zawierać informacje na temat architektury sieciowej aplikacji, w tym sposobu konfiguracji sieci w klastrze Kubernetes, wykorzystywanych protokołów i narzędzi do zarządzania siecią.
+Architektura sieciowa aplikacji opiera się na modelu sieciowym Kubernetes, który umożliwia komunikację między podami oraz z zewnętrznymi usługami sieciowymi.
 
-\noindent
-\textbf{Każdy odnośnik, który znajdzie się w literaturze musi mieć swoje odwołanie w projekcie. - 2 pkt} 
+\begin{itemize}
+\item \textbf{Ingress:} Wszystkie usługi (frontend, backend, Keycloak) są dostępne poprzez Ingress, który zarządza dostępem do usług w klastrze z zewnątrz. Ingress umożliwia routowanie ruchu sieciowego do odpowiednich usług na podstawie adresu URL i metody HTTP.
 
-\bibliographystyle{amsplain}
-\bibliography{references.bib}
+\item \textbf{Protokoły:} Aplikacja korzysta z protokołu HTTP do komunikacji między frontendem a backendem. Do zarządzania stanem sesji i autoryzacji używany jest protokół OAuth2 z Keycloak.
+
+\end{itemize}
+
 \nocite{*}
 
 \end{document}
