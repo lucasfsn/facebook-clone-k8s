@@ -68,6 +68,7 @@ Go to the client directory
 Build the Docker image with environment variables
 
 - VITE_BACKEND_API_URL=your_backend_api_url
+- VITE_KEYCLOAK_USERINFO_ENDPOINT=your_keycloak_userinfor_endpoint_url
 - VITE_KEYCLOAK_TOKEN_ENDPOINT=your_keycloak_token_endpoint_url
 - VITE_KEYCLOAK_CLIENT_ID=your_keycloak_client_id
 - VITE_KEYCLOAK_SECRET=your_keycloak_secret
