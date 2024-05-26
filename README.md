@@ -4,14 +4,14 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
 
 ## Contents
 
-- [Documentation](#documentation)
+- [Documentation (polish version)](#documentation)
 - [App Preview](#app-preview)
 - [Overview](#overview)
   - [Features](#features)
   - [Technologies Used](#technologies-used)
 - [Run Locally](#get-repository)
 
-### [Documentation](https://github.com/lucasfsn/fb-clone-ug/tree/main/documentation)
+### [Documentation](https://github.com/lucasfsn/fb-clone-ug/tree/main/docs)
 
 ### App Preview
 
