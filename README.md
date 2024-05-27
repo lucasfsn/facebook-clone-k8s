@@ -9,7 +9,7 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
 - [Overview](#overview)
   - [Features](#features)
   - [Technologies Used](#technologies-used)
-- [Run Locally](#get-repository)
+- [Run Locally](#run-locally)
 
 ### [Documentation](https://github.com/lucasfsn/fb-clone-ug/tree/main/docs)
 
@@ -45,27 +45,27 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
 ![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
-## Get repository
+## Run locally
 
-Clone the project
+Clone the project:
 
 ```bash
   git clone https://github.com/lucasfsn/facebook-clone
 ```
 
-Go to the project directory
+Navigate to the project directory:
 
 ```bash
   cd facebook-clone
 ```
 
-Go to the client directory
+Navigate to the client directory:
 
 ```bash
   cd client
 ```
 
-Build the Docker image with environment variables
+Build the Docker image with following build arguments:
 
 - VITE_BACKEND_API_URL=your_backend_api_url
 - VITE_KEYCLOAK_USERINFO_ENDPOINT=your_keycloak_userinfor_endpoint_url
@@ -77,62 +77,62 @@ Build the Docker image with environment variables
   docker build --build-arg VITE_BACKEND_API_URL=... --build-arg VITE_KEYCLOAK_USERINFO_ENDPOINT=... --build-arg VITE_KEYCLOAK_TOKEN_ENDPOINT=... --build-arg VITE_KEYCLOAK_CLIENT_ID=... --build-arg VITE_KEYCLOAK_SECRET=... -t image:tag  .
 ```
 
-Push image to registry
+Push the image to registry:
 
 ```bash
   docker push image:tag
 ```
 
-Go to the server directory
+Navigate to the server directory:
 
 ```bash
   cd server
 ```
 
-Replace keycloak.json values with your keycloak data:
+Update the `keycloak.json` file with your specific Keycloak configuration data. This includes the following values:
 
-- realm: Your keycloak realm name
-- auth-server-url: Your keycloak url
-- resource: Your keycloak client id
-- secret: Your keycloak client secret
-- realm-public-key: Your keycloak public key
+- `realm`: Your Keycloak realm name
+- `auth-server-url`: Your Keycloak URL
+- `resource`: Your Keycloak client ID
+- `secret`: Your Keycloak client secret
+- `realm-public-key`: Your Keycloak public key
 
-Build the Docker image
+Build the Docker image:
 
 ```bash
   docker build -t image:tag .
 ```
 
-Push image to registry
+Push the image to registry:
 
 ```bash
   docker push image:tag
 ```
 
-Go to the k8s directory
+Navigate to the directory containing the Kubernetes configuration files:
 
 ```bash
   cd k8s
 ```
 
-Create backend-secrets.yml
+Create a Kubernetes Secret configuration file named `backend-secrets.yml`. This file will store sensitive data such as connection strings and API keys. Replace the placeholders with your actual data.
 
-```bash
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: backend-secrets
-    labels:
-      app: facebook-clone
-  data:
-    MONGO_CONNECTION_STRING: your_mongo_connection_string
-    CLIENT_SECRET: your_client_secret
-    CLOUDINARY_CLOUD_NAME: your_cloudinary_cloud_name
-    CLOUDINARY_API_KEY: your_cloudinary_api_key
-    CLOUDINARY_API_SECRET: your_cloudinary_api_secret
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-secrets
+  labels:
+    app: facebook-clone
+data:
+  MONGO_CONNECTION_STRING: your_mongo_connection_string
+  CLIENT_SECRET: your_client_secret
+  CLOUDINARY_CLOUD_NAME: your_cloudinary_cloud_name
+  CLOUDINARY_API_KEY: your_cloudinary_api_key
+  CLOUDINARY_API_SECRET: your_cloudinary_api_secret
 ```
 
-Add the following lines to your hosts file
+Update your system's hosts file by adding the following lines:
 
 ```bash
   127.0.0.1 api.facebook-clone.com
@@ -162,23 +162,19 @@ Add the following lines to your hosts file
 
 Login to [keycloak](http://keycloak.facebook-clone.com)
 
-```bash
-  username: keycloak
-  password: keycloak
-```
+- username: `keycloak`
+- password: `keycloak`
 
-Set those things in keycloak
+Configure Keycloak with the following settings:
 
-```bask
-  Create realm with name: facebook-clone
-  Create client with id: keycloak
-  Client authentication: ON
-  Standard Flow: ON
-  Direct access grants: ON
-  Service accounts roles: ON
-  Anything else: OFF
-  Web origins: http://facebook-clone.com
-```
+- Create a realm named `facebook-clone`.
+- Create a client with the ID `keycloak`.
+- Enable the following options:
+  - Client Authentication
+  - Standard Flow
+  - Direct Access Grants
+  - Service Accounts Roles
+- Set the Web Origins to `http://facebook-clone.com`.
 
 ## Author
 
