@@ -10,6 +10,7 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
   - [Features](#features)
   - [Technologies Used](#technologies-used)
 - [Run Locally](#run-locally)
+- [Deployment](#deployment)
 
 ### [Documentation](https://github.com/lucasfsn/fb-clone-ug/tree/main/docs)
 
@@ -59,6 +60,8 @@ Navigate to the project directory:
   cd facebook-clone
 ```
 
+Next, proceed to the [Deployment](#deployment) section to configure Keycloak. After you've done that, run `minikube stop` to halt your Minikube cluster. Then, continue with the remaining configuration steps described below.
+
 Navigate to the client directory:
 
 ```bash
@@ -67,15 +70,17 @@ Navigate to the client directory:
 
 Build the Docker image with following build arguments:
 
-- VITE_BACKEND_API_URL=your_backend_api_url
-- VITE_KEYCLOAK_USERINFO_ENDPOINT=your_keycloak_userinfor_endpoint_url
-- VITE_KEYCLOAK_TOKEN_ENDPOINT=your_keycloak_token_endpoint_url
-- VITE_KEYCLOAK_CLIENT_ID=your_keycloak_client_id
+- VITE_BACKEND_API_URL=your_backend_api_url (default: http://api.facebook-clone.com)
+- VITE_KEYCLOAK_USERINFO_ENDPOINT=your_keycloak_userinfor_endpoint_url (default: http://keycloak.facebook-clone.com/realms/facebook-clone/protocol/openid-connect/userinfo)
+- VITE_KEYCLOAK_TOKEN_ENDPOINT=your_keycloak_token_endpoint_url (default: http://keycloak.facebook-clone.com/realms/facebook-clone/protocol/openid-connect/token)
+- VITE_KEYCLOAK_CLIENT_ID=your_keycloak_client_id (default: keycloak)
 - VITE_KEYCLOAK_SECRET=your_keycloak_secret
 
 ```bash
   docker build --build-arg VITE_BACKEND_API_URL=... --build-arg VITE_KEYCLOAK_USERINFO_ENDPOINT=... --build-arg VITE_KEYCLOAK_TOKEN_ENDPOINT=... --build-arg VITE_KEYCLOAK_CLIENT_ID=... --build-arg VITE_KEYCLOAK_SECRET=... -t image:tag  .
 ```
+
+_Replace the values in the build arguments with your specific configuration. If you haven't changed anything, you can use the default values provided in the brackets._
 
 Push the image to registry:
 
@@ -132,6 +137,8 @@ data:
   CLOUDINARY_API_SECRET: your_cloudinary_api_secret
 ```
 
+## Deployment
+
 Update your system's hosts file by adding the following lines:
 
 ```bash
@@ -175,6 +182,8 @@ Configure Keycloak with the following settings:
   - Direct Access Grants
   - Service Accounts Roles
 - Set the Web Origins to `http://facebook-clone.com`.
+
+Also, ensure that you have correctly saved the _client secret_ and the _realm public key (RSA256)_. These are required for the entire application to work properly.
 
 ## Author
 

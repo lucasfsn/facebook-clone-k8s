@@ -136,7 +136,7 @@
 \section{Opis projektu}
 \label{sec:Project}
 
-Projekt "facebook-clone" powstał z myślą o dynamicznie rozwijającej się firmie \textbf{ConnectSphere}, która specjalizuje się w dostarczaniu innowacyjnych rozwiązań technologicznych. \textbf{ConnectSphere} zauważyła, że wiele małych i średnich przedsiębiorstw potrzebuje prostych, ale skutecznych narzędzi do budowania społeczności i komunikacji z klientami. Jednak popularne platformy społecznościowe, takie jak Facebook, często są zbyt skomplikowane i obciążone nadmiarem funkcji, co prowadzi do wolnej i nieefektywnej komunikacji.
+Projekt "facebook-clone" powstał z myślą o dynamicznie rozwijającej się firmie \textbf{ConnectSphere}, która specjalizuje się w dostarczaniu innowacyjnych rozwiązań technologicznych. \textbf{ConnectSphere} zauważyła, że wiele małych i średnich przedsiębiorstw potrzebuje prostych, ale skutecznych narzędzi do budowania społeczności i komunikacji z klientami. Jednak popularne platformy społecznościowe, takie jak Facebook, często są zbyt obciążone nadmiarem funkcji, co prowadzi do wolnej i nieefektywnej komunikacji.
 
 \textbf{ConnectSphere} potrzebowała prostego, ale skutecznego narzędzia do budowania społeczności wokół swojej misji. Chcieli stworzyć miejsce, gdzie firmy mogłyby łatwo komunikować się ze swoimi klientami, dzielić się aktualnościami i informacjami o produktach, a także otrzymywać bezpośrednie opinie.
 
@@ -148,7 +148,7 @@ Aplikacja "facebook-clone" jest zbudowana z trzech kluczowych elementów: interf
 
 Aplikacja jest hostowana na klastrze Kubernetes, który zapewnia skalowalność, niezawodność i wydajność. Interfejs użytkownika jest dostępny dla użytkowników za pośrednictwem przeglądarki internetowej, podczas gdy serwer aplikacji komunikuje się z bazą danych i obsługuje żądania użytkowników.
 
-Aplikacja korzysta z Ingress w Kubernetes, który zarządza dostępem do usług w klastrze, zapewniając wysokowydajne i niezawodne przekierowanie ruchu. Dzięki Ingress, aplikacja jest dostępna pod adresem https://facebook-clone.com (frontend), https://api.facebook-clone.com (backend) i https://keycloak.facebook-clone.com (keycloak). Ingress umożliwia także łatwe zarządzanie ruchem sieciowym, co jest kluczowe dla utrzymania wydajności i niezawodności aplikacji.
+Aplikacja korzysta z Ingress w Kubernetes, który zarządza dostępem do usług w klastrze, zapewniając wydajne i niezawodne przekierowanie ruchu. Dzięki Ingress, aplikacja jest dostępna pod adresem https://facebook-clone.com (frontend), https://api.facebook-clone.com (backend) i https://keycloak.facebook-clone.com (keycloak). Ingress umożliwia także łatwe zarządzanie ruchem sieciowym, co jest kluczowe dla utrzymania wydajności i niezawodności aplikacji.
 
 
 \subsection{Opis infrastruktury - 6 pkt}
@@ -168,7 +168,7 @@ Aplikacja składa się z:
 
 \item \textbf{Keycloak:} Do zarządzania uwierzytelnianiem i autoryzacją w aplikacji używamy Keycloak. Keycloak jest skonfigurowany do pracy w trybie "client credentials", gdzie autoryzacja jest oparta na identyfikatorze i tajnym kluczu klienta, a nie na danych użytkownika. Tokeny uwierzytelniające są generowane przez Keycloak i przekazywane do backendu, gdzie są używane do zabezpieczania naszego API.
 
-\item \textbf{PostgreSQL:} Aplikacja korzysta z bazy danych PostgreSQL, która jest zarządzana przez Keycloak. Baza danych jest przechowywana na stałym woluminie (PVC), co pozwala na zachowanie danych nawet po zatrzymaniu i ponownym uruchomieniu kontenera.
+\item \textbf{PostgreSQL:} Aplikacja korzysta z bazy danych PostgreSQL, która jest zarządzana przez Keycloak. Baza danych jest przechowywana na stałym woluminie (PVC), co pozwala na zachowanie danych oraz ustawień dla Keycloak nawet po zatrzymaniu i ponownym uruchomieniu kontenera.
 \end{itemize}
 
 \subsection{Konfiguracja i zarządzanie - 4 pkt}
@@ -192,7 +192,8 @@ Konfiguracja i zarządzanie aplikacją na poziomie klastra Kubernetes odbywa si�
 \label{sec:ERD} 
 
 \begin{itemize}
-\item \textbf{Obsługa błędów na poziomie aplikacji:} W backendzie i frontendzie korzystam z bloków `try {} catch {}` do przechwytywania i obsługi błędów. Dzięki temu, nawet w przypadku nieoczekiwanych błędów, nasza aplikacja nie przestaje działać.
+\item \textbf{Obsługa błędów na poziomie aplikacji:} W backendzie i frontendzie korzystam z bloków `try {} catch {}` do przechwytywania i obsługi błędów. Dzięki temu, nawet w przypadku nieoczekiwanych błędów, aplikacja nie przestaje działać.
+\item \textbf{Zarządzanie błędami na poziomie infrastruktury:} W konfiguracji Deployment dla backendu, korzystam z mechanizmu replikacji Kubernetes. Dzięki temu, jeśli jeden z podów aplikacji napotka błąd i przestanie działać, Kubernetes automatycznie przekieruje ruch do drugiego poda.
 
 \end{itemize}
 
