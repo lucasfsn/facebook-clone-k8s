@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: lucasfsn/facebook-clone-frontend:4.0
+          image: your-frontend-image
           resources:
             limits:
               cpu: '200m'

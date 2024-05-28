@@ -147,18 +147,13 @@ Update your system's hosts file by adding the following lines:
   127.0.0.1 keycloak.facebook-clone.com
 ```
 
-**Windows**
+Navigate to the directory containing the Kubernetes configuration files:
 
 ```bash
-  1. minikube start --memory 4096 --disk-size 10g --cpus 2
-  2. minikube addons enable ingress
-  3. minikube apply -f .
-  4. kubectl get pods -n ingress-nginx (copy ingress-nginx-controller pod name)
-  5. Add your ingress custom host names to your system configuration
-  6. kubectl -n ingress-nginx port-forward pod/pod-name-from-point-4--address 0.0.0.0 80:80 443:443
+  cd k8s
 ```
 
-**Linux**
+Run the following commands:
 
 ```bash
   1. minikube start --memory 4096 --disk-size 10g --cpus 2
