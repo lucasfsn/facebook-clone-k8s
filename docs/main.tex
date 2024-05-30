@@ -144,12 +144,11 @@ Dlatego powstał pomysł na stworzenie "facebook-clone" - platformy, która ofer
 
 \subsection{Opis architektury - 8 pkt}
 \label{sec:introduction}
-Aplikacja "facebook-clone" jest zbudowana z trzech kluczowych elementów: interfejsu użytkownika (frontend), serwera aplikacji (backend) i bazy danych. Interfejs użytkownika został stworzony przy użyciu TypeScript i frameworka React, podczas gdy serwer aplikacji również korzysta z TypeScript, ale z frameworka Express. Baza danych to MongoDB, która jest hostowana w chmurze.
+"facebook-clone" jest zbudowane z interfejsu użytkownika (frontend), serwera aplikacji (backend), bazy danych oraz serwisu uwierzytelniania Keycloak.
 
-Aplikacja jest hostowana na klastrze Kubernetes, który zapewnia skalowalność, niezawodność i wydajność. Interfejs użytkownika jest dostępny dla użytkowników za pośrednictwem przeglądarki internetowej, podczas gdy serwer aplikacji komunikuje się z bazą danych i obsługuje żądania użytkowników.
+Aplikacja jest hostowana na klastrze Kubernetes, który zapewnia skalowalność, niezawodność i wydajność. Interfejs użytkownika jest dostępny dla użytkowników za pośrednictwem przeglądarki internetowej, podczas gdy serwer aplikacji komunikuje się z bazą danych mongodb i obsługuje żądania użytkowników. Elementy te są zabezpieczone dzięki integracji z Keycloak.
 
 Aplikacja korzysta z Ingress w Kubernetes, który zarządza dostępem do usług w klastrze, zapewniając wydajne i niezawodne przekierowanie ruchu. Dzięki Ingress, aplikacja jest dostępna pod adresem https://facebook-clone.com (frontend), https://api.facebook-clone.com (backend) i https://keycloak.facebook-clone.com (keycloak). Ingress umożliwia także łatwe zarządzanie ruchem sieciowym, co jest kluczowe dla utrzymania wydajności i niezawodności aplikacji.
-
 
 \subsection{Opis infrastruktury - 6 pkt}
 \label{sec:Users}
@@ -162,9 +161,11 @@ Aplikacja "facebook-clone" jest zaprojektowana do działania w środowisku Kuber
 Aplikacja składa się z:
 
 \begin{itemize}
-\item \textbf{Frontend:} Frontend został zbudowany za pomocą biblioteki React. Do obsługi żądań HTTP używamy serwera Nginx. Kod źródłowy frontendu jest zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
+\item \textbf{Frontend:} Interfejs użytkownika został zbudowany za pomocą biblioteki React. Do serwowania statycznych plików używamy serwera Nginx. Kod źródłowy frontendu jest zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
 
 \item \textbf{Backend:} Backend został zbudowany za pomocą frameworka Express.js. Backend komunikuje się z bazą danych MongoDB, która jest hostowana na platformie MongoDB Atlas. Podobnie jak frontend, backend jest również zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
+
+\item \textbf{Baza danych:} Aplikacja korzysta z MongoDB jako bazy danych. Jest ona hostowana w chmurze, co zapewnia dodatkową niezawodność i elastyczność. Baza danych jest skonfigurowana do komunikacji z serwerem aplikacji za pośrednictwem bezpiecznego połączenia.
 
 \item \textbf{Keycloak:} Do zarządzania uwierzytelnianiem i autoryzacją w aplikacji używamy Keycloak. Keycloak jest skonfigurowany do pracy w trybie "client credentials", gdzie autoryzacja jest oparta na identyfikatorze i tajnym kluczu klienta, a nie na danych użytkownika. Tokeny uwierzytelniające są generowane przez Keycloak i przekazywane do backendu, gdzie są używane do zabezpieczania naszego API.
 
@@ -212,7 +213,7 @@ Skalowalność jest kluczowa w architekturze aplikacji opartej na Kubernetes.
 
 \begin{itemize}
 \item \textbf{Frontend:} 300MB pamięci RAM, 0.2 rdzenia CPU
-\item \textbf{Backend:} 600MB pamięci RAM, 0.2 rdzenia CPU
+\item \textbf{Backend:} 600MB pamięci RAM, 0.2 rdzenia CPU (na replikę)
 \item \textbf{PostgreSQL:} 256MB pamięci RAM, 0.15 rdzenia CPU
 \item \textbf{Keycloak:} 2000MB pamięci RAM, 1 rdzeń CPU
 \end{itemize}
