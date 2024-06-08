@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: your-frontend-image
+          image: lucasfsn/facebook-clone-client:1.0-windows
           resources:
             limits:
               cpu: '200m'

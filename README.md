@@ -139,7 +139,7 @@ data:
 
 ## Deployment
 
-Update your system's hosts file by adding the following lines:
+Update your system hosts file by adding the following lines:
 
 ```bash
   127.0.0.1 api.facebook-clone.com
@@ -158,7 +158,7 @@ Run the following commands:
 ```bash
   1. minikube start --memory 4096 --disk-size 10g --cpus 2
   2. minikube addons enable ingress
-  3. minikube apply -f .
+  3. kubectl apply -f .
   4. minikube tunnel
 ```
 

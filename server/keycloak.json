@@ -4,9 +4,9 @@
   "ssl-required": "external",
   "resource": "keycloak",
   "credentials": {
-    "secret": "RsiJd9ft90B9aHVBVFOPBF8JZX5horl8"
+    "secret": "P3yaP9la3FPwb1iybE2r1FOYrkZ5qdM1"
   },
   "confidential-port": 0,
   "bearer-only": true,
-  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp0GEGO56rGs45yPHpqJQELxT/P/Se255N2bYCAFmHVkoCuZ5rXDy+Zjps3C/HnoA2/TVxI82FRTSWZiHW/Qdnai7ddM81YWDOb1x9j2kFJPRix9ycK7vW6JVc+idHlGES4RtAVOnd3CeuhhBYWJbm3jyjH4P4lKwShmSkuDaBd+6LeLzT2DRjYe0iXaYioX9JJNr+rYCHxDCjuR4KJgCJVOnXH56dPUEIiskH3tpG92QKEZJxfOwLwVyKf9mhl8dPc3p3gJBmB08oVt4dEyVS0/ZILQjzL1fSZzts83ykPJWDa2iYxUHpMXtfMOTH+uYXwonKdOjZuMtcIDy/eGSPwIDAQAB"
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6R4iTQTUQftpFbHvsUF+43bRPUUJZF9gxq5FSVha2un7iCE/6X3VWN++1zBFpf8vyG81UZORs3PBFAYB6uEhuXk5UPODniyS4JN19zdNj7gO6kML2x7e8uWkk1LRKAn47Fxzv1AmPBxUAxNXLBr+yVH4EE/7w0Q9I64GuHslVQ7FQ6CbsGI8ojWCXpkXApxdcDIZUZouv9E3mzu+IlZffebf8haJ33Evm7SIzw1/DpLLEB8jxTVGiNoHeqWGHkPK/StPLrzQehR4jGDnY0reY7ckh7vVYloQcFpQpEBbGh6jKFxqOMFnoO51vYjMnEJYKrcpc5H5BymZw4WjoYqQwIDAQAB"
 }
