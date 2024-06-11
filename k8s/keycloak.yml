@@ -8,8 +8,15 @@ data:
   KC_DB_URL_DATABASE: 'keycloak'
   KC_DB_URL_HOST: 'postgres-service'
   KC_DB_URL_PORT: '5432'
-  KEYCLOAK_ADMIN: 'keycloak'
-  KEYCLOAK_ADMIN_PASSWORD: 'keycloak'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: keycloak-secret
+type: Opaque
+data:
+  KEYCLOAK_ADMIN: a2V5Y2xvYWs=
+  KEYCLOAK_ADMIN_PASSWORD: a2V5Y2xvYWs=
 ---
 apiVersion: v1
 kind: Service
@@ -77,13 +84,13 @@ spec:
                   key: KC_DB_URL_PORT
             - name: KEYCLOAK_ADMIN
               valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config
+                secretKeyRef:
+                  name: keycloak-secret
                   key: KEYCLOAK_ADMIN
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config
+                secretKeyRef:
+                  name: keycloak-secret
                   key: KEYCLOAK_ADMIN_PASSWORD
             - name: KC_DB_PASSWORD
               valueFrom:
