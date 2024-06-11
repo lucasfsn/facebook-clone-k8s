@@ -1,7 +1,9 @@
 \documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont} 
 \usepackage[polish]{babel}
+\usepackage{polski}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[top=1in, bottom=1.5in, left=1.25in, right=1.25in]{geometry}
@@ -161,11 +163,11 @@ Aplikacja "facebook-clone" jest zaprojektowana do działania w środowisku Kuber
 Aplikacja składa się z:
 
 \begin{itemize}
-\item \textbf{Frontend:} Interfejs użytkownika został zbudowany za pomocą biblioteki React. Do serwowania statycznych plików używamy serwera Nginx. Kod źródłowy frontendu jest zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
+\item \textbf{Frontend:} Interfejs użytkownika został zbudowany za pomocą biblioteki React. Do serwowania statycznych plików używamy serwera Nginx.
 
-\item \textbf{Backend:} Backend został zbudowany za pomocą frameworka Express.js. Backend komunikuje się z bazą danych MongoDB, która jest hostowana na platformie MongoDB Atlas. Podobnie jak frontend, backend jest również zawarty w kontenerze Docker, który jest konfigurowany i uruchamiany za pomocą Dockerfile.
+\item \textbf{Backend:} Backend został zbudowany za pomocą frameworka Express.js. Backend komunikuje się z bazą danych MongoDB, która jest hostowana na platformie MongoDB Atlas.
 
-\item \textbf{Baza danych:} Aplikacja korzysta z MongoDB jako bazy danych. Jest ona hostowana w chmurze, co zapewnia dodatkową niezawodność i elastyczność. Baza danych jest skonfigurowana do komunikacji z serwerem aplikacji za pośrednictwem bezpiecznego połączenia.
+\item \textbf{Baza danych:} Aplikacja korzysta z MongoDB jako bazy danych. Jest ona hostowana w chmurze, co zapewnia dodatkową niezawodność i elastyczność.
 
 \item \textbf{Keycloak:} Do zarządzania uwierzytelnianiem i autoryzacją w aplikacji używamy Keycloak. Keycloak jest skonfigurowany do pracy w trybie "client credentials", gdzie autoryzacja jest oparta na identyfikatorze i tajnym kluczu klienta, a nie na danych użytkownika. Tokeny uwierzytelniające są generowane przez Keycloak i przekazywane do backendu, gdzie są używane do zabezpieczania naszego API.
 
@@ -182,7 +184,7 @@ Konfiguracja i zarządzanie aplikacją na poziomie klastra Kubernetes odbywa si�
 
 \item \textbf{Serwisy:} Komunikacja między komponentami aplikacji jest zarządzana za pomocą Serwisów Kubernetes, które zapewniają odkrywanie i balansowanie obciążenia.
 
-\item \textbf{ConfigMaps i Secrets:} Konfiguracja aplikacji jest przechowywana w ConfigMaps (Ingress, Keycloak, PostgreSQL) i Secrets (Backend, PostgreSQL). Pozwala to na centralne zarządzanie konfiguracją i bezpieczne przechowywanie poufnych danych.
+\item \textbf{ConfigMaps i Secrets:} Konfiguracja aplikacji jest przechowywana w ConfigMaps (Ingress, Keycloak, PostgreSQL) i Secrets (Backend, PostgreSQL, Keycloak). Pozwala to na centralne zarządzanie konfiguracją i przechowywanie poufnych danych.
 
 \item \textbf{Persistent Volume Claims:} Dane bazy danych PostgreSQL są przechowywane na Persistent Volume za pomocą Persistent Volume Claim, co zapewnia trwałość danych.
 
