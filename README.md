@@ -4,15 +4,13 @@ Full stack Facebook clone built using the MERN stack that allows you to communic
 
 ## Contents
 
-- [Documentation (polish version)](#documentation)
+- [Documentation (polish version)](https://github.com/lucasfsn/facebook-clone-k8s/blob/main/docs/main.pdf)
 - [App Preview](#app-preview)
 - [Overview](#overview)
   - [Features](#features)
   - [Technologies Used](#technologies-used)
 - [Run Locally](#run-locally)
 - [Deployment](#deployment)
-
-### [Documentation](https://github.com/lucasfsn/fb-clone-ug/tree/main/docs)
 
 ### App Preview
 
