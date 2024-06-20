@@ -180,4 +180,4 @@ Also, ensure that you have correctly saved the _client secret_ and the _realm pu
 
 ## Author
 
-- GitHub - [@lucasfsn](https://github.com/lucasfsn)
+- GitHub - [Łukasz Nowosielski](https://github.com/lucasfsn)
